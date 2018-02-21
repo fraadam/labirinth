@@ -6,9 +6,7 @@
  *
  * 01. Ábrázold a lépéseidet egy steps nevű tömbben.
  */
-var steps = [[0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8]];
+var steps = ['right', 'down', 'up', 'left'];
 /**
  * 02. Definiálj egy x és egy y változót 0 értékkel.
  */
@@ -28,7 +26,13 @@ var possibleResults = {
   5: { hu: 'ot', en: 'five' },
   6: { hu: 'hat', en: 'six' },
   7: { hu: 'het', en: 'seven' },
-  8: { hu: 'nyolc', en: 'eight' }
+  8: { hu: 'nyolc', en: 'eight' },
+  9: { hu: 'kilenc', en: 'nine' },
+  10: { hu: 'tíz', en: 'ten' },
+  11: { hu: 'tizenegy', en: 'eleven' },
+  12: { hu: 'tizenkettő', en: 'twelve' },
+  13: { hu: 'tizenhárom', en: 'thirteen' },
+  14: { hu: 'tizennégy', en: 'fourteen' }
 };
 /**
  * 04. Definiálj egy result és egy formattedResult változót érték nélkül.
@@ -46,10 +50,10 @@ var formattedResult;
  * A zérus a bal felső sarok legyen, az a 0,0 -s koordináta.
  * Ügyelj rá, először az X-et, majd az Y-t hívjuk: matrix[x][y].
  */
-var matrix = [[0, 1, 2, 3],
-[4, 5, 6, 7],
-[8, 9, 10, 11],
-[12, 13, 14, 15]];
+var matrix = [[0, 4, 8, 12],
+  [1, 5, 9, 13],
+  [2, 6, 10, 14],
+  [3, 7, 11, 15]];
 /**
 
  * 06. Hozz létre egy függvényt, getResult néven.
@@ -59,10 +63,10 @@ var matrix = [[0, 1, 2, 3],
  *     Ha nem, akkor a visszatérési értéknek "X" -nek kell lennie.
  *     Ha az Y-on van undefined, szintén "X" legyen a visszatérési érték.
  */
-function getResult (matrix) {
+function getResult () {
   if (typeof (matrix[x]) === 'object') {
     return matrix[x][y];
-  } else if (matrix[y] === 'undefined') {
+  } else if (typeof matrix[y] !== 'object') {
     return 'X';
   } else {
     return 'X';
@@ -97,11 +101,9 @@ function processStep (step) {
  *     1-egy-one
  */
 function resultFormatter () {
-  if (result === 'X') {
-    console.log('X');
-  } else {
-    console.log(possibleResults());
-  }
+  if (result === 'X') return result;
+  let posre = possibleResults[result];
+  return result + ' ' + posre['hu'] + ' ' + posre['en'];
 }
 
 /**
@@ -111,19 +113,19 @@ function resultFormatter () {
  *     eredményét, ez után pedig a formattedResult-ba a resultFormatter eredményét.
  *     Végül console.log-old ki a formattedResult -ot.
  */
-function processSteps (steps) {
-  for (let i = 0; i < steps; i++) {
-    processStep(steps[i]);
+function processSteps () {
+  for (let i = 0; i <= steps.length - 1; i++) {
+    processStep(steps);
     result = getResult();
     formattedResult = resultFormatter();
     console.log(formattedResult);
-  } 
+  }
 }
 
 /**
- * 10. Hívd meg a processSteps függvényt.*/
-processSteps(steps);
- /* Jó munkát!
+ * 10. Hívd meg a processSteps függvényt. */
+processSteps();
+/* Jó munkát!
  *
  * u.i.: rajzoljatok mint az ősember a barlang falára!
  */
